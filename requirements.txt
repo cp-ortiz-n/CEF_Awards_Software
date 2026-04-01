@@ -1,0 +1,17 @@
+beautifulsoup4==4.13.3
+fuzzywuzzy==0.18.0
+googlemaps==4.10.0
+jupyter_client==8.6.3
+jupyter_core==5.7.2
+jupyterlab_pygments==0.3.0
+matplotlib-inline==0.1.7
+numpy==2.2.3
+pandas==2.2.3
+python-dateutil==2.9.0.post0
+requests==2.32.3
+scipy==1.15.2
+smartystreets_python_sdk==4.17.0
+urllib3==2.3.0
+openpyxl
+python-Levenshtein
+selenium

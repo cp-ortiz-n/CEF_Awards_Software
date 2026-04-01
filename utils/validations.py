@@ -49,11 +49,11 @@ def address_validation(s: Student, chicago_schools: list, school_list: dict, ver
     -------
     """
     # Check address if residential or commercial and get cleaned up address
-    if CALL_APIS:
-        pass
+    #if CALL_APIS:
+        #pass
         # resident_validation(s, verbose, DEBUG)
-    else:
-        s.address_type = 'Residential'
+    #else:
+    s.address_type = 'Residential'
 
     # The school is needed for other calls, might as well always clean up
     # if s.address_type == 'Residential' and s.city.upper() != 'CHICAGO':

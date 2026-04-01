@@ -13,3 +13,11 @@
 /utils/keys.py
 /Student_Data/NormalizeTest.csv
 /Student_Data/Student Answers for 2020 Incentive Awards.csv
+.idea/
+doc/
+/predict_ACT/New folder/
+__pycache__/
+Student_Data/
+outputs/
+geckodriver.log
+main.py

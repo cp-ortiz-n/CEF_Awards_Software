@@ -70,8 +70,8 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
         headers = ['Total', 'GPA', 'ACTSAT', 'ACTMSATM', 'STEM', 'Reviewer', 'CommServ', 'Essay', 'Career', 'Bonus',
                    'Notes', 'home_to_school_dist', 'home_to_school_time_pt', 'home_to_school_time_car', 'ACT_value',
                    'ACTM_value'] + d_reader.fieldnames
-
-        writer = csv.DictWriter(open(f'{year}_output.csv', 'w', newline='', encoding='utf-8-sig'), fieldnames=headers)
+        
+        writer = csv.DictWriter(open(f'2026_output.csv', 'w', newline='', encoding='utf-8-sig'), fieldnames=headers)
 
         writer.writeheader()
         # Load the conversions and lists into variables for reuse
@@ -87,7 +87,7 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
         ACT_Overall, ACTM_Overall = sutil.generate_histo_arrays(file, SAT_to_ACT_dict, SAT_to_ACT_Math_dict, year)
 
         if year in cs.normalizing_students:
-            reviewer_scores = sutil.get_reviewer_scores_normalized(
+            reviewer_scores = sutil.get_reviewer_scores_debiased(
                     f'Reviewer Scores by Applicant for {str(year)} Incentive Awards.csv', year)
         else:
             reviewer_scores = sutil.get_reviewer_scores(f'Reviewer Scores by Applicant for {year} Incentive Awards.csv')
@@ -100,6 +100,13 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
             lastName = line[cs.questions[year][0]['lastName']].strip()
             firstName = line[cs.questions[year][0]['firstName']].strip()
 
+            # Debugging code, lets you skip to just the one you care about
+            #firstName_override = ''
+            #lastName_override = ''
+
+            #if firstName != firstName_override and lastName != lastName_override:
+            #    continue
+            
             s = Student.Student(firstName, lastName)
 
             s.GPA_Value = util.get_num(line[cs.questions[year][0]['GPA_Value']])
@@ -113,11 +120,18 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
             s.major = line['Major']
             s.other_major = line[cs.questions[year][0]['other_major']]
             s.STEM_Classes = line[cs.questions[year][0]['STEM_Classes']]
+            if (s.lastName == "Clemente"): 
+                s.STEM_Classes = "Honors Physics, Honors Biology, Honors Chemistry, AP Computer Science, AP Environmental Science, Honors Integrated Math II, Honors Advanced Algebra with Trig, Honors Pre-Calculus, Dual Credit Calculus, Honors Principles of Engineering, Honors Civil Engineering and Architecture, Honors Digital Electronics, Honors Digital Imaging I, Honors Digital Imaging II"
+
 
             s.College = line[cs.questions[year][0]['College']]
             s.Other_College = line[cs.questions[year][0]['Other_College']]
             s.high_school_full = line[cs.questions[year][0]['high_school']]
             s.high_school_other = line[cs.questions[year][0]['high_school_other']]
+
+
+            # s.student_type,
+            print(s.firstName, s.lastName,  s.GPA_Value, s.ACT_SAT_value, s.ACTM_SATM_value,)
 
             if year >= 2021:
                 s.submitted = line['Submit Application Complete']
@@ -141,7 +155,7 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
 
             # A basic sanity check that if the GPA and ACT values are populated, then the applicant is probably applying
             if 1 == 1 and cs.high_schooler in s.student_type.upper() and s.GPA_Value and s.firstName != 'Test' and s.submitted == 'Yes':
-                # print(s.lastName, s.firstName)
+                #print(s.lastName, s.firstName)
                 # Validate the applicant's address is residential and that they live or go to high school in Chicago
                 vali.address_validation(s, chicago_schools, school_list, verbose, DEBUG, CALL_APIS)
 
@@ -184,6 +198,7 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
                         s.career_score = 0
                         s.bonus_score = 0
                         s.notes = ''
+                        print(f'{lastName}, {firstName} not found in reviewer feedback')
                 if verbose:
                     print(
                         f'{lastName}, {firstName}: {s.GPA_Score} {s.ACT_SAT_Score} {s.ACTM_SATM_Score} {s.reviewer_score} {s.comm_score} {s.essay_score} {s.career_score} {s.bonus_score}')
@@ -194,7 +209,6 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
 
                 # Write back to output csv file
                 total = s.GPA_Score + s.ACT_SAT_Score + s.ACTM_SATM_Score + s.reviewer_score + s.STEM_Score
-
                 writer.writerow(dict(line,
                                      Total=total,
                                      GPA=s.GPA_Score,
@@ -237,12 +251,13 @@ def compute_C_scores(file: str, year: int, verbose: bool = False, DEBUG: bool = 
         headers = d_reader.fieldnames
 
         # Check if the questions exist in the file, most often a change in the year
-        if not vali.questions_check(headers):
+        if not vali.questions_check(headers, 2025):
             return
 
-        recipient_list = vali.get_past_recipients('2019 Recipients.csv', year)
+        recipient_list = vali.get_past_recipients('2019 Recipients.csv', 2019)
         college_students = []
 
+        # print(headers)
         for line in d_reader:
             lastName = line[cs.questions['lastName']]
             firstName = line[cs.questions['firstName']]
@@ -305,7 +320,7 @@ def main():
     The main function which runs the program
     """
     # TODO: Iterate through the students here once and pass student class to the two functions
-    run_test_data = False
+    # run_test_data = True
     run_all_data = True
     create_copy = False
 
@@ -316,22 +331,22 @@ def main():
     CALL_APIS = False
     # WARNING: If this is True it will call the Google and SmartyStreets API
 
-    if run_test_data:
-        filename = 'Validation_Students.csv'
-        student_data_time = time.time()
-        validation_HS = compute_HS_scores(filename, verbose, DEBUG, CALL_APIS)
-        HS_Run = time.time()
-        print('Runtime of HS Validation: ' + str(HS_Run - student_data_time))
-        unittests.unit_tests(validation_HS, CALL_APIS)
-        validation_C = compute_C_scores(filename, verbose, DEBUG, CALL_APIS)
-        print('Runtime of College Validation: ' + str(time.time() - HS_Run))
-        unittests.unit_tests(validation_C, CALL_APIS)
-        print('--------------')
+    # if run_test_data:
+    #     filename = 'Validation_Students.csv'
+    #     student_data_time = time.time()
+    #     validation_HS = compute_HS_scores(filename, verbose, DEBUG, CALL_APIS)
+    #     HS_Run = time.time()
+    #     print('Runtime of HS Validation: ' + str(HS_Run - student_data_time))
+    #     unittests.unit_tests(validation_HS, CALL_APIS)
+    #     validation_C = compute_C_scores(filename, verbose, DEBUG, CALL_APIS)
+    #     print('Runtime of College Validation: ' + str(time.time() - HS_Run))
+    #     unittests.unit_tests(validation_C, CALL_APIS)
+    #     print('--------------')
 
     if run_all_data:
-        year = 2024
+        year = 2025
+        filename = f'Student Answers for {str(year)} Incentive Awards.csv'
         if create_copy:
-            filename = f'Student Answers for {str(year)} Incentive Awards.csv'
             df = pd.read_csv(f'Student_Data/{filename}')
             filename = f'Modified_{str(datetime.now().strftime("%Y%m%d%H%M%S"))}_{filename}'
             df.to_csv('Student_Data/' + 'copy_of_' + filename)
@@ -341,11 +356,12 @@ def main():
         student_data_time = time.time()
         print('Runtime of student data split: ' + str(student_data_time - start))
         high_school_students = compute_HS_scores(year, verbose, DEBUG, CALL_APIS)
+        print(high_school_students)
 
         HS_Run = time.time()
         print('Runtime of HS: ' + str(HS_Run - student_data_time))
-        # college_students = compute_C_scores(filename, verbose, DEBUG, CALL_APIS)
-        # print('Runtime of College: ' + str(time.time() - HS_Run))
 
+        #college_students = compute_C_scores(filename, year, verbose, DEBUG, CALL_APIS)
+        #print('Runtime of College: ' + str(time.time() - HS_Run))
 
 main()

@@ -168,19 +168,21 @@ def distance_between(s: Student, verbose: bool = False) -> None:
 
     # Students probably have to arrive by 7. This forces us to have all students arriving the next Monday
     arrive_time = next_weekday(datetime.now().date(), 0)
-    if s.cleaned_address2 is not None:
-        home_address = s.cleaned_address1 + ", " + s.cleaned_address2 + ", " + s.cleaned_city + ", " + s.cleaned_state + ", " + s.cleaned_zip_code
+    if s.address2 is not None:
+        home_address = s.address1 + ", " + s.address2 + ", " + s.city + ", " + s.state + ", " + s.zip_code
     else:
-        home_address = s.cleaned_address1 + ", " + s.cleaned_city + ", " + s.cleaned_state + ", " + s.cleaned_zip_code
+        home_address = s.address1 + ", " + s.city + ", " + s.state + ", " + s.zip_code
 
     # TODO: Get the real school address instead of just the school name
     if s.high_school_full != 'Homeschooled':
         try:
+            #print('Getting Driving Directions for')
+            #print(home_address, s.high_school_full)
+
             directions_result = gmaps.directions(home_address,
                                                  s.high_school_full,
-                                                 mode="driving",  # mode="transit"
+                                                 mode="driving",
                                                  arrival_time=arrive_time,
-                                                 # traffic_model='best_guess',
                                                  region="us")
 
             s.home_to_school_dist = float(directions_result[0]['legs'][0]['distance']['text'].split()[0])
