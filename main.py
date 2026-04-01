@@ -5,47 +5,49 @@ It also generates a score for each applicant based on predefined criteria.
 
 import csv
 import time
-from datetime import datetime
-from typing import Tuple
-
+import logging
 import pandas as pd
-
 import constants as cs
+
+from datetime import datetime
 from classes import Student
 from utils import validations as vali, scoring_util as sutil, util, unittests
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# First ones to work on
-# TODO: Add school address to spreadsheet
-# TODO: Detect wide reviewer spread (lowest and highest is greater than 20? 25? points)
-# TODO: If record doesn't write, throw up error
-# TODO: Replace file logic with pandas
+class Config:
+    """A class to hold all of the configuration variables for the program."""
 
-# Backlog
-# TODO: Output data to Google Spreadsheets https://www.twilio.tcom/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html https://automatetheboringstuff.com/2e/chapter14/
-# TODO: Coursework functionality
-# TODO: Extract csv from AwardSpring automatically - https://automatetheboringstuff.com/2e/chapter12/
-# https://realpython.com/python-web-scraping-practical-introduction/
-# TODO: Implement Sphnix
-# TODO: Move constants to Google Spreadsheet for non-dev user to update
-# TODO: Email notifications for warnings
-# TODO: Incremental changes
-# TODO: Detect changes and update Google Sheet rather than rerunning every time
-# TODO: Determine school quality
-# TODO: Check submission status, if they have not submitted but filled everything out, autowarn?
-# TODO: Make High School And College student subclass
-# TODO: Store several variables as class variables https://realpython.com/inheritance-composition-python/
-# TODO: Host this on an AWS server ? https://realpython.com/python-sql-libraries/
-# TODO: Verify ACT/SAT from pdf https://pypi.org/project/pdftotext/
-# TODO: Extract coursework from pdf https://pypi.org/project/pdftotext/
-# TODO: Figure out how to handle the questions changing
-# TODO: Add gitignore with emails and passwords, better secure them
-# TODO: Package numpy, scipy
-# TODO: Ask for SAT II test scores?
-# TODO: batchgeo autogen?
+    def __init__(self):
+        # Logging / verbosity
+        self.DEBUG = True                   # Enables debug-level behavior in functions (eg. stricter checks, more logs)
+        self.verbose = True                 # Enables detailed prints (student scores, warnings, progress), False to mute most output
+
+        # Active runtimes
+        self.run_test_data = False          # Run test data + unit tests
+        self.run_high_school_data = True    # Run high school student pipeline
+        self.run_college_data = False       # Run college student pipeline
+        self.run_all_data = False           # Run both high school and college pipelines on all data (overrides the two above)
+        self.create_backup_copy = False     # Create timestamped backup of input CSV before processing
+
+        # External calls
+        self.CALL_APIS = False              # If True, calls Google and SmartyStreets API (uses credits)
+
+    def __iter__(self):
+        return iter([
+            self.DEBUG,
+            self.verbose,
+            self.run_test_data,
+            self.run_high_school_data,
+            self.run_college_data,
+            self.run_all_data,
+            self.create_backup_copy,
+            self.CALL_APIS,
+        ])
 
 
-def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CALL_APIS: bool = False):
+def process_high_school_application_scores(year: int, verbose: bool = False, DEBUG: bool = False, CALL_APIS: bool = False):
     """The main function that computes the high school student's scores and validates their application
 
     Parameters
@@ -231,7 +233,7 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
     return student_list
 
 
-def compute_C_scores(file: str, year: int, verbose: bool = False, DEBUG: bool = False, CALL_APIS: bool = False):
+def process_college_application_scores(file: str, year: int, verbose: bool = False, DEBUG: bool = False, CALL_APIS: bool = False):
     """The main function that checks college student's eligibility for the award
 
     Parameters
@@ -283,7 +285,7 @@ def compute_C_scores(file: str, year: int, verbose: bool = False, DEBUG: bool = 
     return college_students
 
 
-def generate_student_data(file: str, verbose: bool = False, DEBUG: bool = False) -> Tuple[list, list]:
+def load_student_data(file: str, verbose: bool = False, DEBUG: bool = False) -> tuple[list, list]:
     """Run through the student file to generate a list of the students with their class variable set
 
     Parameters
@@ -314,54 +316,101 @@ def generate_student_data(file: str, verbose: bool = False, DEBUG: bool = False)
     return high_school_students, college_students
 
 
+def run_validation_tests(verbose, DEBUG, CALL_APIS):
+    """Run validation tests on the test data files."""
+
+    filename = 'Validation_Students.csv'
+    student_data_time = time.time()
+    validation_HS = process_high_school_application_scores(filename, verbose, DEBUG, CALL_APIS)
+    HS_Run = time.time()
+    logger.info('Runtime of HS Validation: %s', HS_Run - student_data_time)
+    unittests.unit_tests(validation_HS, CALL_APIS)
+
+    validation_C = process_college_application_scores(filename, 2025, verbose, DEBUG, CALL_APIS)
+    logger.info('Runtime of College Validation: %s', time.time() - HS_Run)
+    unittests.unit_tests(validation_C, CALL_APIS)
+
+
+def run_stage(name: str, count_label: str = None, action = None):
+    """Run a stage of the program with logging and timing.
+
+    Parameters
+    ----------
+    name : str
+        The name of the stage (for logging purposes)
+    action : function
+        The function to execute for this stage
+    count_label : str
+        The label to use when logging the count of items processed in this stage
+
+    Returns
+    -------
+    result
+        The result of the action function
+    """
+    start_time = time.time()
+    result = action()
+    elapsed_time = time.time() - start_time
+    logger.info('Stage %s runtime: %.3f sec', name, elapsed_time)
+
+    if result is None: 
+        return result
+
+    if isinstance(result, tuple):
+        total = sum(len(r) for r in result if hasattr(r, '__len__'))
+        logger.info('%s total students: %d', name, total)
+    elif hasattr(result, '__len__'):
+        logger.info('%s %s count: %d', name, count_label, len(result))
+
+    return result
+
 def main():
-    # TODO: Remember to do the XGBoost on the missing ACTs
     """
     The main function which runs the program
     """
+    # TODO: VALIDATE THESE TWO TODOS: 
+    # TODO: Remember to do the XGBoost on the missing ACTs
     # TODO: Iterate through the students here once and pass student class to the two functions
-    # run_test_data = True
-    run_all_data = True
-    create_copy = False
 
-    DEBUG = True
-    verbose = True
+    year = 2025 # CHANGE THIS EVERY YEAR, also check the questions in constants.py to make sure they match the new file
 
-    # WARNING: If this is True it will call the Google and SmartyStreets API
-    CALL_APIS = False
-    # WARNING: If this is True it will call the Google and SmartyStreets API
+    start = time.time()
+    filename = f'Student Answers for {year} Incentive Awards.csv'
 
-    # if run_test_data:
-    #     filename = 'Validation_Students.csv'
-    #     student_data_time = time.time()
-    #     validation_HS = compute_HS_scores(filename, verbose, DEBUG, CALL_APIS)
-    #     HS_Run = time.time()
-    #     print('Runtime of HS Validation: ' + str(HS_Run - student_data_time))
-    #     unittests.unit_tests(validation_HS, CALL_APIS)
-    #     validation_C = compute_C_scores(filename, verbose, DEBUG, CALL_APIS)
-    #     print('Runtime of College Validation: ' + str(time.time() - HS_Run))
-    #     unittests.unit_tests(validation_C, CALL_APIS)
-    #     print('--------------')
+    # WARNING: Recheck the configurations before running the program, especially the CALL_APIS variable which will use your API credits if set to True
+    (DEBUG, verbose, run_test_data, run_high_school_data, run_college_data, run_all_data, create_backup_copy, CALL_APIS) = Config()
+    
+    if run_test_data:
+        run_validation_tests(verbose, DEBUG, CALL_APIS)
+
+    if create_backup_copy:
+        df = pd.read_csv(f'Student_Data/{filename}')
+        backup_name = f'Modified_{datetime.now().strftime("%Y%m%d%H%M")}_{filename}'
+        df.to_csv(f'Student_Data/copy_of_{backup_name}', index=False)
 
     if run_all_data:
-        year = 2025
-        filename = f'Student Answers for {str(year)} Incentive Awards.csv'
-        if create_copy:
-            df = pd.read_csv(f'Student_Data/{filename}')
-            filename = f'Modified_{str(datetime.now().strftime("%Y%m%d%H%M%S"))}_{filename}'
-            df.to_csv('Student_Data/' + 'copy_of_' + filename)
+        _ = run_stage(
+            name = 'All Data',
+            count_label ='Students Count',
+            action = lambda: load_student_data(filename, verbose, DEBUG)
+        )
 
-        start = time.time()
-        # generate_student_data(filename)
-        student_data_time = time.time()
-        print('Runtime of student data split: ' + str(student_data_time - start))
-        high_school_students = compute_HS_scores(year, verbose, DEBUG, CALL_APIS)
-        print(high_school_students)
+    if run_high_school_data:
+        _ = run_stage(
+            name = 'High School Scoring',
+            count_label = 'Student Count',
+            action = lambda: process_high_school_application_scores(year, verbose, DEBUG, CALL_APIS)
+        )
+    
+    if run_college_data:
+        _ = run_stage(
+            name = 'College Scoring',
+            count_label = 'Student Count',
+            action = lambda: process_college_application_scores(filename, year, verbose, DEBUG, CALL_APIS)
+        )
 
-        HS_Run = time.time()
-        print('Runtime of HS: ' + str(HS_Run - student_data_time))
+    logger.info('Runtime for total processing: %s seconds', time.time() - start)
 
-        #college_students = compute_C_scores(filename, year, verbose, DEBUG, CALL_APIS)
-        #print('Runtime of College: ' + str(time.time() - HS_Run))
 
-main()
+if __name__ == '__main__':
+    main()
