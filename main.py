@@ -71,7 +71,7 @@ def compute_HS_scores(year: int, verbose: bool = False, DEBUG: bool = False, CAL
                    'Notes', 'home_to_school_dist', 'home_to_school_time_pt', 'home_to_school_time_car', 'ACT_value',
                    'ACTM_value'] + d_reader.fieldnames
         
-        writer = csv.DictWriter(open(f'2026_output.csv', 'w', newline='', encoding='utf-8-sig'), fieldnames=headers)
+        writer = csv.DictWriter(open(f'{year}_output.csv', 'w', newline='', encoding='utf-8-sig'), fieldnames=headers)
 
         writer.writeheader()
         # Load the conversions and lists into variables for reuse
