@@ -12,6 +12,7 @@ COMMS_calc - Converts total community service hours into a score
 
 """
 
+from asyncio.log import logger
 import csv
 import math
 import statistics as stat
@@ -500,6 +501,9 @@ def GPA_Calc(student: Student, verbose: bool = False, DEBUG: bool = False) -> No
     student.GPA_Score *= cs.GPA_Score
     student.GPA_Score = round(student.GPA_Score, 2)
 
+    if student.GPA_Score < 2.90:
+        student.error_messages.append(f"GPA score is below threshold: {student.GPA_Score}, likely due to invalid GPA value or missing.")
+
 
 def score_coursework(s: Student, course_scores: dict, verbose: bool = False, DEBUG: bool = False) -> None:
     classes = class_split(s.STEM_Classes)
@@ -512,7 +516,10 @@ def score_coursework(s: Student, course_scores: dict, verbose: bool = False, DEB
                 excep_list.append(c)
                 s.STEM_Score += 2
     if len(excep_list) > 0:
-        print(s.firstName, s.lastName, excep_list)
+        if verbose: 
+            logger.warning(f"{s.firstName} {s.lastName}: Unrecognized courses found - {excep_list}")
+        s.unrecognized_courses.extend(excep_list)
+        s.error_messages.append(f"Unrecognized courses found: {s.unrecognized_courses}")
 
     s.STEM_Score = min(cs.STEM_Score, s.STEM_Score / 3.5)
 
