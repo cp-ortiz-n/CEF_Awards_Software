@@ -65,7 +65,7 @@ def load_csv_and_validate_headers(year: int):
         A list of the headers in the CSV file
     """
     student_answers_file = f'Student Answers for {str(year)} Incentive Awards.csv'
-    csvinput = open(f'Student_Data/{student_answers_file}', 'r', encoding="utf-8-sig")
+    csvinput = open(f'processingDataFiles/{student_answers_file}', 'r', encoding="utf-8-sig")
     dict_reader = csv.DictReader(csvinput)
     headers = dict_reader.fieldnames
     
@@ -93,7 +93,7 @@ def setup_output_writer(year: int, headers: list):
         A DictWriter object for writing to the output CSV file with the new score headers included
 
     """
-    output_file = f'{year}_output.csv'
+    output_file = f'outputs/{year}_output.csv'
     score_headers = ['Total', 'GPA', 'ACTSAT', 'ACTMSATM', 'STEM', 'Reviewer', 'CommServ', 'Essay', 'Career', 'Bonus',
                      'Notes', 'home_to_school_dist', 'home_to_school_time_pt', 'home_to_school_time_car', 'ACT_value',
                      'ACTM_value', 'Error_Messages']
@@ -116,15 +116,24 @@ def load_reference_data(year: int):
     Returns
     -------
     A tuple containing all of the reference data variables needed for processing and scoring the student applications, including:
-    - SAT_to_ACT_dict: A dictionary for converting SAT scores to ACT scores
-    - SAT_to_ACT_Math_dict: A dictionary for converting SAT Math scores to ACT Math
-    - course_scores: A dictionary for scoring the applicant's coursework based on their listed classes
-    - school_list: A list of valid high schools for the award
-    - chicago_schools: A list of high schools in Chicago for validating the applicant's connection to Chicago
-    - reviewer_feedback_df: A DataFrame containing the detailed feedback from reviewers for each applicant (only available for 2022 and later)
-    - reviewer_scores: A dictionary of the overall reviewer scores for each applicant
-    - ACT_Overall: A list of ACT score distributions for the overall applicant pool, used for scoring
-    - ACTM_Overall: A list of ACT Math score distributions for the overall applicant pool, used for scoring
+    - SAT_to_ACT_dict: 
+        A dictionary for converting SAT scores to ACT scores
+    - SAT_to_ACT_Math_dict: 
+        A dictionary for converting SAT Math scores to ACT Math
+    - course_scores: 
+        A dictionary for scoring the applicant's coursework based on their listed classes
+    - school_list:
+        A list of valid high schools for the award
+    - chicago_schools:
+        A list of high schools in Chicago for validating the applicant's connection to Chicago
+    - reviewer_feedback_df:
+        A DataFrame containing the detailed feedback from reviewers for each applicant (only available for 2022 and later)
+    - reviewer_scores:
+        A dictionary of the overall reviewer scores for each applicant
+    - ACT_Overall:
+        A list of ACT score distributions for the overall applicant pool, used for scoring
+    - ACTM_Overall: 
+        A list of ACT Math score distributions for the overall applicant pool, used for scoring
     """
 
     SAT_to_ACT_dict = util.conversion_dict('SAT_to_ACT.csv', 'int')
@@ -132,9 +141,7 @@ def load_reference_data(year: int):
     course_scores = util.conversion_dict('Course_scoring.csv', 'str')
     school_list, chicago_schools = vali.get_school_list('Illinois_Schools_Fix.csv')
 
-    if year >= 2022:  # Only started getting this in 2022
-        reviewer_feedback_df = util.get_review_feedback(f'{year} CEF Reviewer Detailed Feedback.xlsx')
-
+    reviewer_feedback_df = util.get_review_feedback(f'{year} CEF Reviewer Detailed Feedback.xlsx')
     ACT_Overall, ACTM_Overall = sutil.generate_histo_arrays(f'Student Answers for {year} Incentive Awards.csv', SAT_to_ACT_dict, SAT_to_ACT_Math_dict, year)
 
     if year in cs.normalizing_students:
@@ -550,11 +557,8 @@ def main():
     """
     The main function which runs the program
     """
-    # TODO: VALIDATE THESE TWO TODOS: 
-    # TODO: Remember to do the XGBoost on the missing ACTs
-    # TODO: Iterate through the students here once and pass student class to the two functions
 
-    year = 2025 # CHANGE THIS EVERY YEAR, also check the questions in constants.py to make sure they match the new file
+    year = 2026 # CHANGE THIS EVERY YEAR, also check the questions in constants.py to make sure they match the new file
 
     start = time.time()
     filename = f'Student Answers for {year} Incentive Awards.csv'
@@ -566,9 +570,9 @@ def main():
         run_validation_tests(verbose, DEBUG, CALL_APIS)
 
     if create_backup_copy:
-        df = pd.read_csv(f'Student_Data/{filename}')
+        df = pd.read_csv(f'processingDataFields/{filename}')
         backup_name = f'Modified_{datetime.now().strftime("%Y%m%d%H%M")}_{filename}'
-        df.to_csv(f'Student_Data/copy_of_{backup_name}', index=False)
+        df.to_csv(f'outputs/copy_of_{backup_name}', index=False)
 
     if run_all_data:
         _ = run_stage(

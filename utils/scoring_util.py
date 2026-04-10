@@ -30,7 +30,6 @@ from utils import util
 # To run this the student names MUST be concatenated together in the order "LastNameFirstName"
 # For example if FirstName = John and LastName = Doe, then student1 = DoeJohn
 # Currently it works if a reviewer has a z score, for all students, greater or less than 1/-1 for all test students
-#
 def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, DEBUG: bool = True) -> dict:
     """This function takes in a file with all the reviews for all students and normalizes them. It does this based on
     the prerequisite that all reviewers have been assigned the same three students to review in addition to others.
@@ -70,7 +69,7 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
     student2 = cs.normalizing_students[year][1]
     student3 = cs.normalizing_students[year][2]
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:
@@ -160,7 +159,6 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
     return reviewer_output
 
 
-
 def get_reviewer_scores_debiased(file: str, year: int, verbose: bool = False, DEBUG: bool = True) -> dict:
     """This function takes in a file with all the reviews for all students and debiases them by calculating the average
     deviation each reviewer is over the three students and adjusting all their other scores accordingly. This one has
@@ -183,7 +181,7 @@ def get_reviewer_scores_debiased(file: str, year: int, verbose: bool = False, DE
     student3 = cs.normalizing_students[year][2]
 
     # load the scv file
-    reviewer_df = pd.read_csv(f'Student_Data/{file}')
+    reviewer_df = pd.read_csv(f'processingDataFiles/{file}')
 
     reviewer_df = reviewer_df[reviewer_df['ReviewStatus'] == 'Complete']
 
@@ -305,7 +303,7 @@ def get_reviewer_scores(file: str, verbose: bool = False, DEBUG: bool = False) -
     reviewer_avg = {}
     student_cnt = {}
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:
@@ -359,7 +357,7 @@ def generate_histo_arrays(file: str, SAT_to_ACT_dict: dict, SAT_to_ACT_Math_dict
     ACT_Overall = []
     ACTM_Overall = []
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:

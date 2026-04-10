@@ -443,6 +443,8 @@ def questions_check(question_list: list, year: int, verbose: bool = False, DEBUG
 
     """
     all_q_exist = True
+
+    print(cs.questions[year][0].values())
     for q in cs.questions[year][0].values():
 
         if q not in question_list:
