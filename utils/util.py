@@ -233,7 +233,8 @@ def distance_between(s: Student, verbose: bool = False) -> None:
 
 
 def get_review_feedback(file_name):
-    reviewer_df = pd.read_excel(f'processingDataFiles/{file_name}')
+    print(f'Getting reviewer feedback from {file_name}')
+    reviewer_df = pd.read_excel(f'{file_name}')
     agg_rev_df = reviewer_df.fillna('').groupby(['Applicant']).agg({'Community Service / Work'  : ['mean'],
                                                                     'Short Essay'               : ['mean'],
                                                                     'Bonus/Discretionary Points': ['mean'],

@@ -499,8 +499,8 @@ def GPA_Calc(student: Student, verbose: bool = False, DEBUG: bool = False) -> No
     student.GPA_Score *= cs.GPA_Score
     student.GPA_Score = round(student.GPA_Score, 2)
 
-    if student.GPA_Score < 2.90:
-        student.error_messages.append(f"GPA score is below threshold: {student.GPA_Score}, likely due to invalid GPA value or missing.")
+    if student.GPA_Value < 3.0:
+        student.error_messages.append(f"GPA value is low: {student.GPA_Value}")
 
 
 def score_coursework(s: Student, course_scores: dict, verbose: bool = False, DEBUG: bool = False) -> None:

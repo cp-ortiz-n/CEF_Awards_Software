@@ -141,7 +141,7 @@ def load_reference_data(year: int):
     course_scores = util.conversion_dict('Course_scoring.csv', 'str')
     school_list, chicago_schools = vali.get_school_list('Illinois_Schools_Fix.csv')
 
-    reviewer_feedback_df = util.get_review_feedback(f'{year} CEF Reviewer Detailed Feedback.xlsx')
+    reviewer_feedback_df = util.get_review_feedback(f'processingDataFiles/{year} CEF Reviewer Detailed Feedback.xlsx')
     ACT_Overall, ACTM_Overall = sutil.generate_histo_arrays(f'Student Answers for {year} Incentive Awards.csv', SAT_to_ACT_dict, SAT_to_ACT_Math_dict, year)
 
     if year in cs.normalizing_students:
@@ -195,18 +195,13 @@ def create_student_instance(line: dict, year: int, CALL_APIS):
     s.major = line['Major']
     s.other_major = line[cs.questions[year][0]['other_major']]
     s.STEM_Classes = line[cs.questions[year][0]['STEM_Classes']]
-    if (s.lastName == "Clemente"): 
-        s.STEM_Classes = "Honors Physics, Honors Biology, Honors Chemistry, AP Computer Science, AP Environmental Science, Honors Integrated Math II, Honors Advanced Algebra with Trig, Honors Pre-Calculus, Dual Credit Calculus, Honors Principles of Engineering, Honors Civil Engineering and Architecture, Honors Digital Electronics, Honors Digital Imaging I, Honors Digital Imaging II"
 
     s.College = line[cs.questions[year][0]['College']]
     s.Other_College = line[cs.questions[year][0]['Other_College']]
     s.high_school_full = line[cs.questions[year][0]['high_school']]
     s.high_school_other = line[cs.questions[year][0]['high_school_other']]
-
-    if year >= 2021:
-        s.submitted = line['Submit Application Complete']
-    else:
-        s.submitted = 'Yes'
+    
+    s.submitted = line['Submit Application Complete']
 
     s.address1 = line[cs.questions[year][0]['address1']]
     s.address2 = line[cs.questions[year][0]['address2']]
@@ -319,14 +314,14 @@ def process_and_score_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS
     validate_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS) 
     if not cs.high_schooler in s.student_type.upper():
         return False
-    #if not validate_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS): 
-        #if cs.high_schooler in s.student_type.upper():
+        #if not validate_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS): 
+        # if cs.high_schooler in s.student_type.upper():
         #    logger.warning('#################################################')
         #    logger.warning('Student %s, %s failed high school validation checks and will not be scored', s.lastName, s.firstName)
         #    validation_error_message = ' | '.join(s.error_messages)
         #    logger.warning('Student %s, %s failed the following checks: %s', s.lastName, s.firstName, validation_error_message)
         #    logger.warning('#################################################')
-        #return False
+        # return False
     
     if s.unrecognized_courses:
         logger.warning('-------------------------------------------------')
