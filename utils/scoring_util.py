@@ -632,6 +632,8 @@ def class_split(classes: str, verbose: bool = False, DEBUG: bool = False) -> lis
     classes = classes.replace(' - ', ',')
     classes = classes.replace(' -', ',')
     classes = classes.replace(',,', ',')
+    classes = classes.replace(' / ', ',')
+    classes = classes.replace('/ ', ',')
 
     class_list = classes.split(',')
 

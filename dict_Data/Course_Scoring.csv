@@ -44,7 +44,6 @@ AP CALCULUS 2,7
 AP Calculus A/B,7
 AP Calculus AB,7
 AP AB Calculus,7
-AP Calculus BC,7
 AP Chemistry,1.75
 AP Chemistry C,1.75
 AP Chemistry Extended,1.75
@@ -177,8 +176,8 @@ Forensics,3.5
 Fundamentals of Internet Technology,1.75
 Fundamentals of IT,1.75
 FUNDAMENTALS OF PROGRAMMING,1.75
-Game Programming 1,1.75
-Game Programming 2,3.5
+Game Programming 1,1.25
+Game Programming 2,2.0
 Game Design 1,1.75
 Gaming,3.5
 geometry,1.75
@@ -190,13 +189,17 @@ Honors Advanced Algebra & Trig,3.5
 HONORS ADVANCED ALGEBRA 2,3.5
 HONORS ADVANCED ALGEBRA WITH TRIG,3.5
 Honors Advanced Algebra with Trig AB,3.5
+Honors Advanced Alg with Trig BC,3.5
 Honors Advanced Algebra with Trig,3.5
 HONORS ADVANCED ALGEBRA WITH TRIG BC,3.5
 HONORS ADVANCED ALGEBRA WITH TRIGNOMETRY,3.5
 HONORS ADVANCED PROGRAMMING,3.5
 HONORS ADVANCED STUDIES COHORT,5.25
 Honors Algebra 2/Trig/Pre-Calc,3.5
+Trig honors algebra 2, 3.5
 Honors Advanced Trignometry,3.5
+AP Physics C Mechanics Engineering,5.25
+CIS Computer Information Science 101 Computer Information,3.5
 Advanced Trig,3.5
 Honors Advandced Algebra with Trig,3.5
 Honors Advanced Algrebra with Trig,3.5
@@ -216,6 +219,7 @@ Honors Math 1,1.75
 Honors Algebra 2,3.5
 Honors Algebra 2 / Trigonometry,3.5
 Honors Algebra 2 with Trigonometry,3.5
+Honors Algrebra 2,3.5
 Honors Algebra 2/Honors Trig,3.5
 Honors Math 3,4
 Honors Math 4,5
@@ -294,6 +298,37 @@ Honors Human Anatomy,5.25
 HONORS HUMAN BODY SYSTEMS,5.25
 Honors Human Comp Inter 1,3.5
 Honors Human Comp Interactions 1,5.25
+Drafting Orientation,3.5
+Regulars Biology 1,1.75
+Regulars Chemistry,1.75
+Regulars Advanced Algebra with Trig,3.5
+Bio,1.75
+Chem,1.75
+Pre-AP Chemistry H,1.75
+Honors Math AB,3.5
+Engineering & Manufacturing H,5.25
+Multivariable Calculus H,7
+MTH-141 Summer course equivalent to Algebra II,3.5
+APA Geometry College Algebra,3.5
+Honors Geometry & Trig integrated math 2f,3.5
+Honors Statistics & Pre-Calc intregrated math 3s,5.25
+Honors Advanced Algebra withTrig HH,3.5
+Honors Chemistry HH,1.75
+Advanced Algebra with Trig HH,3.5
+With Triganomitry, 3.5
+ILIS Independent Study,5.25
+Honors Chemistry AB,1.75
+Honors Chemistry BC,1.75
+Honors Trig BC,3.5
+Math 141,3.5
+CollCred A Mathematics,3.5
+HS2 Intro to Robotics,5.25
+HS Algebra for MG,3.5
+ATP Algebra 2,3.5
+Honors Chgo Builds Orientation to Construction Trades,5.25
+Advanced Physics Senior Elective,5.25
+AP Chemistry Extended Dual-Credit with Loyola,1.75
+STEM Careers Workplace Exp,5.25
 HONORS HUMAN COMPUTER INTERACTION,3.5
 Honors Human Computer Interaction & Design (Makers),3.5
 HONORS INNOVATION CREATION LAB (MAKER'S LAB),5.25
@@ -352,6 +387,7 @@ Honors Physical Science,3.5
 Honors Physics,3.5
 Honors Physics 1,3.5
 Honors Pre Calculus,5.25
+pre calculus,5.25
 HONORS PRE CALULUS,5.25
 Honors PreCalc,5.25
 Honors Pre-Calc,5.25
@@ -363,6 +399,7 @@ AP PreCalculus,3.5
 Honors Precalculus,5.25
 Honors Pre-calculus,5.25
 Honors Pre-Calculus Advanced Placement Calculus,5.25
+Algebra 2-Triganomatry & Pre-Calculus,5.25
 Honors Precalculus B/C,5.25
 Honors Pre-Calc B/C,5.25
 Honors Precalculus BC,5.25
@@ -406,6 +443,7 @@ HONORS WEB DEVELOPMENT,3.5
 HS1 GEOMETRY,1.75
 HUMAN ANATOMY,3.5
 IB Advanced Algebra,3.5
+Advanced Algebra With,3.5
 IB Advanced Algebra Trig,3.5
 IB ADVANCED ALGEBRA WITH TRIG,3.5
 IB Algebra,3.5
@@ -868,3 +906,743 @@ IB Mathematics Apl & Interpretations SL 2,5.25
 Computer Programming 1,3.5
 Advanced Calculus 1,7
 Physics II,3.5
+Electricity,3.5
+Electricity 2,3.5
+Electricity 3,3.5
+Automotive Technology 1,3.5
+Automotive Technology 2,3.5
+Automotive Technology 3,3.5
+Algebra 2-Trigonometry & Pre-Calculus,3.5
+Civil Engineering,5.25
+Advanced Algebra 2,5.25
+AP Computer Science A,3.5
+College Prep Algebra 1,1.75
+College Prep Digital Media,3.5
+College Prep Robotics 1,3.5
+College Prep Chemistry,1.75
+College Prep Engineering Graphics,3.5
+College Prep Physics,3.5
+College Prep Architectural Design,5.25
+College Prep Engineer Your World,5.25
+Advanced Pre-Calculus,5.25
+Technology Sophomore,3.5
+Honors Chemistry Junior,1.75
+Honors Physics Senior,3.5
+Honors Intro to Engineering Design,5.25
+Honors Intro to Engineering Design Sophomore Year,5.25
+Honors Principles of Engineering,5.25
+Honors Pre-Calculus Senior,5.25
+College Credit Anatomy & Physiology,5.25
+Honors Robotics 2,5.25
+C++ Object Oriented Programming 1,3.5
+AP Computer Science Principles,3.5
+Honors Computer Networking 1,3.5
+Honors Computer Networking 2,3.5
+Honors Mathematics in Art,3.5
+AP Cybersecurity Kickstart,5.25
+Probability & Statistics,5.25
+Discrete Mathematics & Statistics,5.25
+Accelerated Chemistry,1.75
+Accelerated Pre-Calc & Calculus A,5.25
+Data Science & Literacy,5.25
+Advanced Topics Physics 2,5.25
+Linear Algebra & Multivariable Calculus,7
+Mechanistic Data Science,5.25
+IB SL Math Analysis & Interpretations 1,5.25
+IB SL Math Analysis & Interpretations 2,5.25
+Honors Robotics 1,5.25
+Honors Computer Design,3.5
+Geometry-Advanced Algebra,3.5
+AP Pre-Calculus BC,5.25
+IB SL Sports Exercise & Health Science,3.5
+Residential Wiring,3.5
+Honors Geometry/Pre-Calc,3.5
+Financial Algebra,3.5
+Honors Trig,3.5
+Pre-Calculus 2,5.25
+Music Production,1.75
+Robotics CP,3.5
+Engineering Essentials,3.5
+Engineering Graphics,3.5
+Honors IDEA,5.25
+Dual-Credit College Algebra,3.5
+Dual-Credit Calculus & Analytic Geometry 1,7
+AP Physics C Mechanics,5.25
+Honors Engineering civil & architectural,5.25
+AP Literature & Composition,1.75
+Honors Integrated Mathematics,3.5
+IB SL Mathematics Applications & Interpretations,5.25
+ATP Algebra 2,3.5
+Trig & Pre-Calculus,5.25
+Dual-Credit Calculus 2,7
+AP Environmental Science,5.25
+Honors Advanced Algebra / Trig,3.5
+Honors Geometry Freshman,1.75
+Honors Biology Freshman/Sophomore,1.75
+Honors Chemistry Freshman/Sophomore,1.75
+Honors Chemimstry,1.75
+Honors Computer Science Sophomore,3.5
+Advanced Placement Calculus AB,7
+Honors Physics Junior,3.5
+Advanced Placement Calculus BC,7
+AP Psychology,3.5
+Geometry / Foundations of Geometry,1.75
+Foundations of Geometry Integrated Literature & Writing 2,2
+Integrated Literature & Writing 2,1.75
+MYP Biology,1.75
+MYP Chemistry,1.75
+MYP Algebra,1.75
+MYP Geometry,1.75
+IB Math Application & Interpretation 1,5.25
+IB Math Application & Interpretation 2,5.25
+Honors Chicago Builds Carpentry,5.25
+AP CSP,3.5
+Intro to Artificial Intelligence,5.25
+CollCred A Mathematics 5,5.25
+AP Transitional Math,3.5
+Honors Algebra 3,3.5
+IB Integrated Mathematics,3.5
+AP Economics,3.5
+Honors Applied Calculus,7
+Pre-AP Geometry,1.75
+Pre-AP Algebra 2,3.5
+Pre-AP Biology,1.75
+Pre-AP Chemistry,1.75
+Fundamentals of Computer Science,3.5
+Computer Science 2,3.5
+Programming Fundamentals,1.75
+Honors Engineering 2,5.25
+Principals of Engineering,5.25
+Biotech,5.25
+Chicago Builds,5.25
+Honours Algebra 1,1.75
+Honours Algebra 2,3.5
+Honours Geometry,1.75
+AP Physics Algebra Based,3.5
+Honours Biology,1.75
+Honours Chemistry,1.75
+Honors Discrete Math,5.25
+Honors Physics,3.5
+IB HL Psychology,3.5
+IB SL Biology,1.75
+IB SL Biology II,1.75
+Honors Into to Robotics,5.25
+Honors Principle of Engineering,5.25
+Honors Digital Electronics,3.5
+Dual-Credit Precalc,3.5
+Honors Civil Engineering & Architecture,5.25
+CIS 181,3.5
+CIS 116,3.5
+CIS 120,3.5
+CIS 103,3.5
+MATH 140,3.5
+MATH 125-1,3.5
+PHY SCI 107,3.5
+PHY SCI 101,3.5
+BIOLOGY 114,1.75
+ARCHITC 170,5.25
+IB Algebra 1,1.75
+IB Biology,1.75
+Honors Chemistry,1.75
+Math ACT Prep,3.5
+IB Mathematics Apl & Interpretation SL 2,5.25
+IB Advanced Algebra,3.5
+Dual Credit Pre-Calculus,3.5
+Dual Credit Biology,1.75
+Honors Physics Dual Credit Biology,1.75
+Honors Alg 1/Geometry Grade 9,1.75
+Honors Algebra 2/Trig Sophomores,3.5
+Advanced Physics Senior,5.25
+Honors Environment Science,3.5
+AP Chemistry Extended,1.75
+AP Physics Electricity & Magnetism,5.25
+Algebra Trig Pre-Calculus,3.5
+Studio Printmaking,1.75
+Macroeconomics,3.5
+Aquaponics,5.25
+Finance & Entrepreneurship,3.5
+Extended Drafting Orientation,3.5
+Computer Networking I,3.5
+Honors Principle of Engineering,5.25
+Honors Civil Engineering & Architect,5.25
+Trigonometry,3.5
+Transitional Math,3.5
+Computer Informational Sciences,3.5
+Honors Chemistry,1.75
+Dual-Credit Calculus & Analytical Geometry 1,7
+Regular Biology 1,1.75
+Regular Chemistry,1.75
+Dual-Credit Calculus AB,7
+Honors EPICS 1,5.25
+Engineering Physics 1,5.25
+Engineering Physics 2,5.25
+Elements of Chemistry,1.75
+Calculus III,7
+Honors Trigonometry,3.5
+Dual-Credit Math 140,3.5
+Honors Cyber Security,7
+IB Math Applications & Interpretations,5.25
+College Algebra & Trig,3.5
+AP Physics CE & M,5.25
+Sophomore Year Coding Class,3.5
+Mathematics,1.75
+Sciences,1.75
+Math Extended,5.25
+IB HL,5.25
+IB SL,5.25
+Honors Physics 2,3.5
+IB SL Math & Interpretation 1,5.25
+IB SL Math & Interpretation 2,5.25
+Honors Engineering Design 1,5.25
+Honors Engineering Design 2,5.25
+Honors College Algebra,3.5
+Honors Game Programming,3.5
+Honors Robotics II,3.5
+Regular Advanced Algebra with Trig,3.5
+AP Physics II,5.25
+Comptuer Science,3.5
+Honors English,1.75
+AS1 CollCred A Mathematics,3.5
+Honors Human Comp Inter I,3.5
+Honors Exploring Computer Science,3.5
+Honors Differentiating Equations & Linear Algebra,7
+Intro to Robotics,3.5
+Intro to Engineering,3.5
+Honors Biology Introduction to Engineering,5.25
+AP Pre-Calc Mechanical Engineering,5.25
+AP Physics Welding Engineering,5.25
+Honors SELC Intro to Engineering,5.25
+Honors SELC Principles of Engineering,5.25
+AP Biology SELC Digital Electronics,3.5
+Finance & Mathematics,3.5
+Honors Math,5.25
+Mathematics 1,1.75
+Mathematics 2,3.5
+Enrichment for Mathematics 1,5.25
+Mathematics I,1.75
+AP Calculus AB Environmental Science Physics,7
+Physics 9,3.5
+Honors 10 PCB,1.75
+Engineering & Manufacturing,5.25
+Engineering Capstone,5.25
+Multivariable Calculus,7
+IB High Level Chemistry 1,5.25
+IB High Level Chemistry 2,5.25
+Honors Geometry/Advance Algebra,3.5
+Honors Algebra 2/Trig/Pre-Calculus,3.5
+IB Standard Level Math Analysis & Approaches 1,5.25
+IB Standard Level Math Analysis & Approaches II,5.25
+Honors Introduction to Computer Science,3.5
+Honors Engineering Design & Development,5.25
+Math 125,3.5
+IB Mathematics,5.25
+Computer Concepts,3.5
+MTH-141,3.5
+AP Cybersecurity,7
+APA Geometry,1.75
+Honors Geometry & Trig,1.75
+Honors Statistics & Pre-Calc,3.5
+Advanced Chemistry,1.75
+Honors Advanced Algebra with Trig,3.5
+Honors Chemistry Advanced,1.75
+Dual Credit,3.5
+AP Multivariable Calculus,7
+Honors Software Apps 2,3.5
+Digital Portfolio,3.5
+Advanced Algebra 2,5.25
+Advanced Biology 1,1.75
+Advanced Chemistry 1,1.75
+Advanced Pre-Calc,5.25
+Advanced Physics 1,5.25
+Computer Programming 2,3.5
+Web Development,3.5
+Honors Independent Study,5.25
+Biology II-Advanced Topics,5.25
+Honors Geometry Advanced Trig,3.5
+Multivariable Calculus Honors,7
+Dual Enrollment Biology,1.75
+Honors Horticulture,3.5
+Advanced Placement Calculus BC,7
+Advanced Placement Physics 1,5.25
+Advanced Placement Physics 2,5.25
+Honors Website Development,3.5
+Honors Algebra 2/Pre-Calculus,3.5
+Honors Pre-Calculus/Calc A,5.25
+College Calc 3,7
+College Differential Equations,7
+AP Computer Science Principles PLTW,3.5
+AP Computer Science Prinicples,3.5
+Intro to Engineering,5.25
+Honors Chemistry Advanced,1.75
+Honors Makerspace 1,5.25
+Digital Design & Fabrication,5.25
+Computer Hardware Maintenance,3.5
+IT Fundamentals,3.5
+Mechatronics,5.25
+Network Essentials,3.5
+Operating System Maintenance,3.5
+AP Calculus A B,7
+Honors Chemistry Major,1.75
+Differential Equations with Linear Algebra,7
+AP Chemistry Double Period,1.75
+Dual Credit Calculus 2,7
+Intro to Design,3.5
+Principals of Engineering,5.25
+STEM Careers Workplace Experience,5.25
+Honors Robotics II,5.25
+Honors Trig,3.5
+AP Computer Science Principles,3.5
+Intro to CAD & Design,3.5
+PLTW Biomedical Interventions,5.25
+Honor Physics 1,3.5
+Intro to Engineering Mechanical Engineering,5.25
+Trig Pre-Calculus Calculus 1,5.25
+Biology Forensics Analysis,1.75
+Environmental Sciences & Agricultural Studies,3.5
+AP Calculus AB Biology,7
+Honors AP Physics 1,5.25
+Mechanics,3.5
+Electricity & Magnetism,3.5
+Geometry Accelerated,1.75
+Orientation to Construction Trades,5.25
+IB Myp Biology,1.75
+IB Myp Exploring Computer Science,3.5
+IB Myp Algebra 1,1.75
+IB Myp Integrated Mathematics,3.5
+IB Myp Advanced Algebra,3.5
+IB Myp Chemistry,1.75
+Cybersecurity,7
+Honors Pre-Calculus with Trig,5.25
+Calculus w Analytic Geometry,7
+Calculus w Analytic Geometry 2,7
+Calculus w Analytic Geometry 3,7
+Engineering Physics 1,5.25
+Engineering Physics II,5.25
+AP Physics C Electricity And Magnetism,5.25
+Honors Engineering Design,5.25
+AP Environmental Science,5.25
+Honors Advance Algebra With Trigonometry,3.5
+Introduction to STEAM,5.25
+Introduction to Fabrication,5.25
+Dual-Credit Calculus 1,7
+Dual-Credit Probability & Statistics,5.25
+Dual-Credit Engineering Design with CAD,5.25
+AP Physics C-M,5.25
+Physics & Advanced Trig,3.5
+DE Advanced Calculus with Analytical Geometry 3,7
+MATH 209,7
+DE Introduction to Python Programming CIS 103,3.5
+Programing 1,3.5
+Portfolio Intro to Design,3.5
+Honors Intro to Robotics,5.25
+Environmental Science,3.5
+Robotics 1,3.5
+Robotics 2,3.5
+Mechanical Engineering,5.25
+Automotive Technology 1-3,3.5
+Algebra 2-Trigonometry & Pre-Calculus,3.5
+AP Computer Science Principles,3.5
+Honors Algebra 2,3.5
+CIS Computer Information Science 101,3.5
+CIS 103 Fundamentals of Programming,3.5
+Dual-Credit Introductory Statistics,5.25
+Chemistry & Biology,1.75
+Digital Imaging 1,3.5
+Digital Media 1,3.5
+Advanced Algebra With Trig,3.5
+Honors Intro to Engineering Design,5.25
+Honors Principles of Engineering,5.25
+Honors Principles of Engineering Junior Year,5.25
+Honors Pre-Calculus,5.25,
+Honors Pre-Calculus Senior Year,5.25
+Honors Geometry,1.75
+Algebra Based Physics,3.5
+AP Computer Science A,3.5
+Advanced Algebra with Trig,3.5
+Civil Engineering & Architecture,5.25
+Geometry-Advanced Algebra,3.5
+Chemistry PDP,1.75
+Honors Chemistry,1.75
+Geometry,1.75
+Honors Trig,3.5
+College Architectural Sketching 110,5.25
+Chemistry,1.75
+Algebra 2,3.5
+Honors,3.5
+Robotics CP,3.5
+Physics CP,3.5
+Science,1.75
+AP Physics C Mechanics,5.25
+Engineering,5.25
+Honors Engineering IED,5.25
+Honors Engineering POE,5.25
+Honors Engineering AE,5.25
+Biology Geometry Honors Geometry Algebra 2,3.5
+Honors Chemistry Physics,3.5
+AP Pre-Calculus Physics,5.25
+Honors College Algebra,3.5
+Honors Environmental Science,3.5
+Ethnic Studies,1.75
+ATP Algebra 2,3.5
+AP Environmental Science,5.25
+AP Computer Science P,3.5
+Honors Advanced Algebra & Trig,3.5
+Advanced Placement Calculus AB,7
+Honors Physics,3.5
+Advanced Placement Calculus BC,7
+AP Psychology,3.5
+Algebra 1-2 College Algebra,3.5
+English Literature Reading 1,1.75
+Geometry Foundations of Geometry,1.75
+Integrated Literature & Writing 2,1.75
+Honors Chicago Builds Orientation to Construction Trades,5.25
+Algebra-Based Physics,3.5
+AP Computer Science Principles,3.5
+Principals of Engineering,5.25
+Advanced Algebra with Trigonometry,3.5
+Honors Pre-Calculus,5.25
+AP Calculus,7
+Engineering 2,5.25
+Principles of Engineering,5.25
+Honors Algebra / Trig,3.5
+Honors Algebra 2,3.5
+Advanced Math Concepts,5.25
+Honors Physics,3.5
+IB HL Psychology,3.5
+IB SL Biology,1.75
+IB SL Math Application & Interpretations,5.25
+IB HL Psychology II,3.5
+IB SL Biology II,1.75
+IB SL Math Application & Interpretations II,5.25
+Honors Geometry,1.75
+Honors Digital Electronics,3.5
+Honors Civil Engineering & Architecture,5.25
+Honors Chemistry,1.75
+IB Biology,1.75
+Integrated Math 2,3.5
+Chemistry,1.75
+Physics,3.5
+IB Integrated Math 2,3.5
+IB Advanced Algebra,3.5
+Dual Credit Pre-Calculus,3.5
+Dual Credit Biology,1.75
+Honors Physics Dual Credit Biology,3.5
+Honors Physics Duel Credit Biology,3.5
+AP Environmental Science,5.25
+Advanced Physics,5.25
+Honors Environmental Science,3.5
+Algebra-Based Physics,3.5
+AP Chemistry Extended,1.75
+AP Physics Electricity & Magnetism,5.25
+Algebra Trig Pre-Calculus,3.5
+Aquaponics,5.25
+Extended Drafting Orientation,3.5
+Honors Civil Engineering & Architecture,5.25
+Trigonometry,3.5
+Advanced Algebra with Trig,3.5
+Honors Chemistry,1.75
+Regular Biology 1,1.75
+Regular Chemistry,1.75
+AP Comp Sci Principles,3.5
+Honors Trigonometry,3.5
+IB Math Applications & Interpretations,5.25
+IB Sports Exercise & Health Science,3.5
+College Algebra & Trig,3.5
+AP Physics C E&M,5.25
+Coding Class,3.5
+Mathematics,1.75
+Sciences,1.75
+Math Extended,5.25
+IB HL Math,5.25
+IB SL Math,5.25
+Honors Physics 2,3.5
+IB SL Math & Interpretation 1,5.25
+IB SL Math & Interpretation 2,5.25
+Honors Engineering Design 1,5.25
+Honors Engineering Design 2,5.25
+Honors College Algebra,3.5
+Honors Game Programming,3.5
+Honors Robotics II,5.25
+Regular Advanced Algebra with Trig,3.5
+AP Physics II,5.25
+Computer Science,3.5
+AS1 CollCred A Mathematics,3.5
+Honors Exploring Computer Science,3.5
+Double Enrollment,3.5
+Honors SELC Intro to Engineering,5.25
+Honors Physics,3.5
+AP Biology SELC Digital Electronics,3.5
+Pre-AP Chemistry,1.75
+Honors Math,5.25
+Mathematics 1,1.75
+Mathematics 2,3.5
+Mathematics I,1.75
+AP Calculus AB,7
+Environmental Science Physics,3.5
+Physics 9,3.5
+Honors PCB,1.75
+Engineering & Manufacturing,5.25
+Engineering Capstone,5.25
+Multivariable Calculus,7
+IB High Level Chemistry 1,5.25
+IB High Level Chemistry 2,5.25
+Honors Geometry/Advanced Algebra,3.5
+Honors Algebra 2/Trig/Pre-Calculus,3.5
+IB Standard Level Math Analysis & Approaches 1,5.25
+IB Standard Level Math Analysis & Approaches II,5.25
+Honors Introduction to Computer Science,3.5
+Honors Engineering Design & Development,5.25
+IB Mathematics,5.25
+Computer Concepts,3.5
+MTH-141,3.5
+AP Cybersecurity,7
+APA Geometry,1.75
+College Algebra,3.5
+Honors Geometry & Trig,1.75
+Integrated Math 2f,3.5
+Honors Statistics & Pre-Calc,3.5
+Integrated Math 3s,5.25
+AP Calculus BC, 7
+Sciences,0.5
+Algebra 2,3.5
+Honors Advanced Algebra with Trig,3.5
+Honors Chemistry,1.75
+Advanced Algebra 2,5.25
+Advanced Biology 1,1.75
+Advanced Chemistry 1,1.75
+Advanced Pre-Calc,5.25
+Advanced Physics 1,5.25
+Computer Programming 2,3.0
+Web Development,2.5
+Honors Independent Study,5.25
+Biology II-Advanced Topics,5.25
+Honors Geometry,1.75
+H Geometry,1.75
+Advanced Trig,3.5
+Trig + Pre-Calc,5.25
+Multivariable Calculus,7
+Dual Enrollment Biology,1.75
+Honors Horticulture,3.5
+Advanced Placement Calculus BC,7
+Advanced Placement Physics 1,5.25
+Advanced Placement Physics 2,5.25
+Honors Website Development,3.5
+Honors Algebra 2/Pre-Calculus,3.5
+Honors Pre-Calculus/Calc A,5.25
+Honors Pre-Calculas,5.25
+College Calc 3,7
+College Differential Equations,7
+AP Computer Science Principles,3.5
+PLTW Intro to Engineering,5.25
+Honors Chemistry,1.75
+Honors Makerspace 1,5.25
+Digital Design & Fabrication,5.25
+Computer Hardware Maintenance,3.5
+IT Fundamentals,3.5
+Mechatronics,5.25
+Network Essentials,3.5
+Operating System Maintenance,3.5
+AP Calculus AB,7
+Honors Chemistry,1.75
+Differential Equations with Linear Algebra,7
+AP Chemistry,1.75
+Dual Credit Calculus 2,7
+Intro to Design,2.5
+Principals of Engineering,5.25
+STEM Careers Workplace Experience,5.25
+Honors Robotics II,5.25
+Honors Trig,3.5
+AP Computer Science Principles,3.5
+Intro to CAD & Design,3.5
+PLTW Biomedical Interventions,5.25
+Honor Physics 1,3.5
+Intro to Engineering,5.25
+Mechanical Engineering Modeling,5.25
+Trig Pre-Calculus Calculus 1,5.25
+Biology Forensics Analysis,1.75
+Environmental Sciences & Agricultural Studies,3.5
+AP Calculus AB,7
+Biology,1.75
+Honors AP Physics 1,5.25
+Mechanics,3.5
+Electricity & Magnetism,3.5
+Geometry Accelerated,1.75
+Orientation to Construction Trades,5.25
+IB Myp Biology,1.75
+IB Myp Exploring Computer Science,3.5
+IB Myp Algebra 1,1.75
+IB Myp Integrated Mathematics,3.5
+IB Myp Advanced Algebra,3.5
+IB Myp Chemistry,1.75
+Cybersecurity,7
+Honors Pre-Calculus with Trig,5.25
+Calculus w Analytic Geometry,7
+Calculus w Analytic Geometry 2,7
+Calculus w Analytic Geometry 3,7
+Engineering Physics 1,5.25
+Engineering Physics II,5.25
+AP Physics C Electricity And Magnetism,5.25
+Honors Engineering Design,5.25
+AP Environmental Science,5.25
+Honors Advanced Algebra With Trigonometry,3.5
+Introduction to STEAM,5.25
+Introduction to Fabrication,5.25
+Dual-Credit Calculus 1,7
+Dual-Credit Probability & Statistics,5.25
+Dual-Credit Engineering Design with CAD,5.25
+AP Physics C-M,5.0
+Physics & Advanced Trig,3.5
+DE Advanced Calculus with Analytical Geometry 3,5
+MATH 209,3.0
+DE Introduction to Python Programming,3.5
+Advanced Algebra with Trig,3.5
+Programming 1,3.5
+Software App 2,3.5
+Portfolio,3.5
+Intro to Robotics,3.5
+Honors Intro to Robotics,5.25
+Environmental Science,3.5
+Robotics 1,3.5
+Robotics 2,3.5
+Mechanical Engineering,5.25
+Honors Advanced Algebra with Trig,3.5
+Advanced Calculus 3,7
+Algebra Based,1.5
+AP Commputer Science A,3.5
+Civil Engineering & Archite,5.25
+Geometry-Advanced Algebra PDP,3.5
+Honors Chemimstry,2.25
+Geometery,1.5
+Honors Trig College Architectural Sketching 110,3.5
+Robotics CP College preparatory level,3.5
+Engineering IED,4.25
+Engineering POE,4.25
+Engineering AE,5.25
+Honors College Algebra honors environmental science ethnic studies,3.5
+ATPAlgebra 2,3.5
+AP Enviromental Science,5.25
+Honors Advanced Algebra & Trig Sophomore Advanced Placement Calculus AB Junior,5.25
+Honors Physics Junior Advanced Placement Calculus BC Senior,5.25
+AP Psychology Senior,3.5
+Principals fo Engingeering,5.25
+AP Calculas,7
+engineering engineering 2,5.25
+principles of engineering honors algebra,3.5
+pre calculus advanced math concepts honors physics,5.25
+IB HL Psychology l,0
+IB SL Biology l,1.75
+IB SL Math Application & Interpretations l,5.25
+IB HL Psychology ll,0
+IB SL Biology ll,1.75
+IB SL Math Application & Interpretations ll,5.25
+Honors Geomerty,1.75
+Honors Digtal Electronics,3.5
+Honors Civl Engineering & Architect,5.25
+IB Biology Sophmore Integrated Math 2,1.75
+Chemistry Junior,1.75
+Physics Senior,3.5
+IB Intergrated Math 2,3.5
+IB Advanced Algebra Duel Credit Pre-Calculus,3.5
+AP Enviornmental Science,5.25
+Honors Environment Science High School Courses Taken in High School,3.5
+Honors civil enginering & architec,5.25
+Trignometry,3.5
+Honors Chemistiry,1.75
+Honors Triginometry,3.5
+IB Math Applications & Intepretations,5.25
+Honors Exploring Comptuer Science,3.5
+Honors SELC Intro to Engineering honors Physics,5.25
+AP Biology SELC Digital Electronics honors,3.5
+AP Calculus BC Sciences,7
+Algreba 2,3.5
+Web Devlopment,3.5
+AP Calculus BC College Calc 3,7
+AP Computer Science Principles PLTW Intro to Enginering,3.5
+Differential Equations with Linear Algebra Biology,7
+AP Compter Science Principles,3.5
+Intro to engineering Mechanical Engineering Modeling with electricity Mechanical Engineering Modeling with Physics Pre Algebra Algebra 1,5.25
+Trig Pre-calculus Calulus 1,5.25
+Independant Advanced Calculus Bio Anatomy Enviornmental Biology Biology Forensics Analysis Environmental Sciences & Agricultural Studies,5.25
+Intro to Engineering Biology,1.75
+AP Phsysics 1,5.25
+Electricity & Magnitism,3.5
+IB Myp Intergated Mathematics,3.5
+Honers Forensic Science,1.75
+Honers Intro To Robotics,5.25
+AP Comp Science Principles,3.5
+Honors Engineering Desing,5.25
+AP Enviormental Science,5.25
+Honors Advance Algebra With Trigonametry,3.5
+AP Enviormental Science,5.25
+AP Pre-Calc AB,5.25
+DE Introduction to Computer Science CIS 101,3.5
+AP Computer Science AHonours Intro to Robotics,3.5
+Honours Environmental Science,3.5
+Honours Advanced Algebra with Trig BC,3.5
+Honours Pre-Calculus,5.25
+Honours Intermediate Computer Science,3.5
+Honors Advanced Algebra withTrig BC,3.5
+High,0
+FRESHMAN,0
+Freshman Year,0
+i don;t have it,0
+English 1-Freshman Year Chemistry,2.5
+World Studies,0
+African American & Latinx Literature-Sophmore year Algebra 2,0
+English Language & Compositon,0
+US History-Junior Year Contemporary Literature & Culture,0
+Technology-Senior Year,2.0
+CP,0
+4 years of,0
+2,0
+AB,2.5
+algebra 12 college algebra englesh lititure reading 1,0.5
+Geometry / Foundations of Geometry Integrated Literature & Writing 2,2.0
+Algebra-Based,0
+AP,0
+Honors & 2,0
+Freshman,0
+IB,0
+Being at the Lane Tech Academic Center for 7th & 8th grade,0
+1,0
+took high school courses in middle school 1,0
+hope it is ok that 1,0
+am listing them here High School Courses Taken in Middle School,2.5
+&,0
+Extended,0
+& Trig,0
+Honors 1,0
+Sophomore year 1,0
+took a coding class,0
+AB,0
+HL,0
+SL,0
+-Honors Chemistry,0
+-College Algebra,0
+i have taken Science,0
+Double,0
+N/a,0
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,0
+H,0
+Honors A,0
+Double,0
+with Trig BC,0
+with Trig,0
+Multivariable,0
+Algebra-Based,0
+High,0
+&,0
+with Pre-Calc,0
+withTrig,0.5
+& Pre-Calculus,1.0
+& Robotics II,1.0
+with Trig,0.5
+-Trig,0.5
+High,0
+& 2,0
+H,0
+& 2,0
+withTrig,0.5
+AS1,0.5
+AS2,0.5
+Algebra-Based,0.5

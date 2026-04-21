@@ -21,7 +21,7 @@ class Config:
 
     def __init__(self):
         # Logging / verbosity
-        self.DEBUG = True                   # Enables debug-level behavior in functions (eg. stricter checks, more logs)
+        self.DEBUG = False                   # Enables debug-level behavior in functions (eg. stricter checks, more logs)
         self.verbose = False                 # Enables detailed prints (student scores, warnings, progress), False to mute most output
 
         # Active runtimes
@@ -268,7 +268,7 @@ def validate_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS):
         error_messages.append('Application not marked as submitted')
 
     # Validate the applicant's address is residential and that they live or go to high school in Chicago
-    vali.address_validation(s, chicago_schools, school_list, verbose, DEBUG, CALL_APIS)
+    vali.legacy_address_validation(s, chicago_schools, school_list, verbose, DEBUG, CALL_APIS)
     
     # Validate the applicant is accepted into an ABET engineering program
     vali.accred_check(s, verbose, DEBUG)
@@ -358,9 +358,9 @@ def process_and_score_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS
         s.essay_score = 0
         s.career_score = 0
         s.bonus_score = 0
-        s.notes = ''
-
-        logger.warning(f'{s.lastName}, {s.firstName} not found in reviewer feedback')
+        s.notes = f'Not found in reviewer feedback, {s.student_type}'
+        if verbose:
+            logger.warning(f'{s.lastName}, {s.firstName} not found in reviewer feedback')
     
     s.total_review_score = s.GPA_Score + s.ACT_SAT_Score + s.ACTM_SATM_Score + s.reviewer_score + s.STEM_Score
 
@@ -379,11 +379,14 @@ def process_high_school_application_scores(year: int, verbose: bool = False, DEB
         student_list = []
         unrecognized_courses = []
 
+        max_students = 150
+        
         for line in dict_reader:
             s = create_student_instance(line, year, CALL_APIS)
             if process_and_score_high_school_student(s, ref_data, verbose, DEBUG, CALL_APIS):
                 if s.unrecognized_courses:
                     unrecognized_courses.extend(s.unrecognized_courses)
+                    
                 writer.writerow(dict(line,
                                     Total=s.total_review_score,
                                     GPA=s.GPA_Score,
@@ -405,6 +408,9 @@ def process_high_school_application_scores(year: int, verbose: bool = False, DEB
                                     ))
 
                 student_list.append(s)
+                #if student_list and len(student_list) >= max_students:
+                #    logger.info('Reached maximum student processing limit of %d. Stopping further processing.', max_students)
+                #    break
     finally: 
         csvinput.close()
 

@@ -38,6 +38,7 @@ class Student:
         self.home_to_school_dist = 0.0
         self.home_to_school_time_pt = 0.0  # public transit
         self.home_to_school_time_car = 0.0  # car
+        self.total_review_score = 0.0
 
         # Score fields
         self.GPA_Score = 0.0
@@ -71,3 +72,7 @@ class Student:
         self.C_College_change = True
         self.other_error = True
         self.other_error_message = ''
+
+        # Tracking error messages and unrecognized data for debugging and review
+        self.unrecognized_courses = []
+        self.error_messages = []
