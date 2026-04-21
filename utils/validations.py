@@ -49,11 +49,11 @@ def address_validation(s: Student, chicago_schools: list, school_list: dict, ver
     -------
     """
     # Check address if residential or commercial and get cleaned up address
-    if CALL_APIS:
-        pass
+    #if CALL_APIS:
+        #pass
         # resident_validation(s, verbose, DEBUG)
-    else:
-        s.address_type = 'Residential'
+    #else:
+    s.address_type = 'Residential'
 
     # The school is needed for other calls, might as well always clean up
     # if s.address_type == 'Residential' and s.city.upper() != 'CHICAGO':
@@ -72,6 +72,7 @@ def address_validation(s: Student, chicago_schools: list, school_list: dict, ver
                 # print(orig_School, ' - ', school, school_score, school_list[school], s.city)
                 s.ChicagoSchool = False
                 s.validationError = True
+                s.error_messages.append('Student does neither lives nor goes to high school in Chicago')
 
                 if verbose:
                     print(
@@ -79,12 +80,14 @@ def address_validation(s: Student, chicago_schools: list, school_list: dict, ver
         else:
             s.school_found = False
             s.validationError = True
+            s.error_messages.append('Could not find matching school in system: ' + s.high_school_full)
             if verbose:
                 print('Could not find matching school in system')
                 print(f'{s.high_school_full} - Student City: {s.city} - Student School{s.high_school_other}')
     if s.address_type != 'Residential':
         s.valid_address = False
         s.validationError = True
+        s.error_messages.append('Student address is not residential')
 
     if CALL_APIS:
         util.distance_between(s, verbose)
@@ -360,6 +363,7 @@ def accred_check(s: Student, verbose: bool = False, DEBUG: bool = False) -> None
 
     if s.major == 'Not Listed':
         s.valid_major = False  # TODO: This probably needs work
+        s.error_messages.append('Major is not listed, unable to verify if it is an engineering major')
         if verbose:
             print('Potential non-engineering major, check: ' + s.NON_ENG_value)
 
@@ -439,6 +443,8 @@ def questions_check(question_list: list, year: int, verbose: bool = False, DEBUG
 
     """
     all_q_exist = True
+
+    print(cs.questions[year][0].values())
     for q in cs.questions[year][0].values():
 
         if q not in question_list:

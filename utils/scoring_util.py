@@ -12,11 +12,13 @@ COMMS_calc - Converts total community service hours into a score
 
 """
 
+from asyncio.log import logger
 import csv
 import math
 import statistics as stat
 from typing import Tuple
 
+import pandas as pd
 import numpy as np
 from scipy.stats import percentileofscore
 
@@ -28,8 +30,7 @@ from utils import util
 # To run this the student names MUST be concatenated together in the order "LastNameFirstName"
 # For example if FirstName = John and LastName = Doe, then student1 = DoeJohn
 # Currently it works if a reviewer has a z score, for all students, greater or less than 1/-1 for all test students
-#
-def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, DEBUG: bool = False) -> dict:
+def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, DEBUG: bool = True) -> dict:
     """This function takes in a file with all the reviews for all students and normalizes them. It does this based on
     the prerequisite that all reviewers have been assigned the same three students to review in addition to others.
     The program will compute the z-score for each reviewer and student combo for the three in question (how many
@@ -68,7 +69,7 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
     student2 = cs.normalizing_students[year][1]
     student3 = cs.normalizing_students[year][2]
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:
@@ -84,7 +85,6 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
                 reviewer = ReviewerLastName + ReviewerFirstName
                 if reviewer not in reviewer_list:
                     reviewer_list.append(reviewer)
-
                 if student == student1.strip().upper():
                     student1_dict[reviewer] = GivenScore
                     student1_arr.append(GivenScore)
@@ -109,6 +109,10 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
     student2_std = float(np.std(np.array(student2_arr)))
     student3_std = float(np.std(np.array(student3_arr)))
 
+    print('Student 1', student1, student1_avg, student1_std)
+    print('Student 2', student2, student2_avg, student2_std)
+    print('Student 3', student3, student3_avg, student3_std)
+
     for r in reviewer_list:
         cnt = 0
         student1_z, student2_z, student3_z = 0, 0, 0
@@ -119,7 +123,7 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
             student2_z = round((review2_dict[r] - student2_avg) / student2_std, 2)
             cnt += 1
         if r in review3_dict:
-            student3_z = round((review3_dict[r] - student3_avg) / student3_std, 2)
+            student3_z = round(((review3_dict[r] + 0.01) - student3_avg) / (student3_std + 0.01), 2)
             cnt += 1
 
         if student1_z + student2_z + student3_z > cnt:
@@ -155,6 +159,134 @@ def get_reviewer_scores_normalized(file: str, year: int, verbose: bool = False, 
     return reviewer_output
 
 
+def get_reviewer_scores_debiased(file: str, year: int, verbose: bool = False, DEBUG: bool = True) -> dict:
+    """This function takes in a file with all the reviews for all students and debiases them by calculating the average
+    deviation each reviewer is over the three students and adjusting all their other scores accordingly. This one has
+    the advantage over the previous of adjusting all reviewer scores, not just the harsh/generous, and also being
+    more statitically sound as we only have three data points really per reviewer.
+
+    Parameters
+    ----------
+    file : str
+        The name of the file which contains the reviewer scores
+
+    Returns
+    -------
+    reviewer_output : dict
+        A dictionary of normalized reviewer scores
+
+    """
+    student1 = cs.normalizing_students[year][0]
+    student2 = cs.normalizing_students[year][1]
+    student3 = cs.normalizing_students[year][2]
+
+    # load the scv file
+    reviewer_df = pd.read_csv(f'processingDataFiles/{file}')
+
+    reviewer_df = reviewer_df[reviewer_df['ReviewStatus'] == 'Complete']
+
+    # make a new column called Applicant which is the concatenation of the StudentFirstName and StudentLastName name
+    reviewer_df['Applicant'] = reviewer_df['StudentLastName'] + reviewer_df['StudentFirstName']
+    # make a new column called Reviewer which is the concatenation of the ReviewerFirstName and ReviewerLastName name
+    reviewer_df['Reviewer'] = reviewer_df['ReviewerLastName'] + reviewer_df['ReviewerFirstName']
+    # Make both columns uppercase
+    reviewer_df['Applicant'] = reviewer_df['Applicant'].str.upper()
+    reviewer_df['Reviewer'] = reviewer_df['Reviewer'].str.upper()
+
+
+    # get the average score for each of the three students using dataframe functions
+    student1Avg = reviewer_df[reviewer_df['Applicant'] == student1]['GivenScore'].mean()
+    student2Avg = reviewer_df[reviewer_df['Applicant'] == student2]['GivenScore'].mean()
+    student3Avg = reviewer_df[reviewer_df['Applicant'] == student3]['GivenScore'].mean()
+
+    # for each reviewer, calculate the average deviation from the three students
+    reviewer_df['ReviewerAvg'] = reviewer_df.groupby('Reviewer')['GivenScore'].transform('mean')
+    # --- Identify Normalizing Students ---
+    normalizing_applicant_ids = [student1, student2, student3]
+    # Define score range boundaries
+    MIN_SCORE = 0
+    MAX_SCORE = 100
+
+    # --- 2. Calculate Average Score for Normalizing Applicants ---
+    normalizing_scores = reviewer_df[reviewer_df['Applicant'].isin(normalizing_applicant_ids)]
+
+    # Group by applicant and calculate the mean score for each normalizing applicant
+    avg_norm_scores = normalizing_scores.groupby('Applicant')['GivenScore'].mean().to_dict()
+    # print("Average scores for normalizing applicants:")
+    # print(avg_norm_scores)
+    # Example Output: {'N1': 84.33, 'N2': 75.0, 'N3': 93.67} (using more reviewers would make this stable)
+
+    # --- 3. Calculate Average Bias per Reviewer ---
+    reviewer_biases = {}
+    all_reviewers = reviewer_df['Reviewer'].unique()
+
+    for reviewer in all_reviewers:
+        # print(reviewer)
+        # Get scores this reviewer gave to normalizing students
+        reviewer_norm_scores = normalizing_scores[normalizing_scores['Reviewer'] == reviewer]
+
+        # Important: Handle cases where a reviewer might be missing a normalizing score
+        # For this example, assume all reviewers scored all normalizing students
+        # if len(reviewer_norm_scores) != len(normalizing_applicant_ids):
+            # print(f"Warning: Reviewer {reviewer} did not score all normalizing applicants. Scored {len(reviewer_norm_scores)} Skipping bias calculation.")
+            # Decide how to handle this - skip, use fewer students, impute? For now, skip.
+            # continue # Or assign a default bias of 0, or handle more gracefully
+
+        deviations = []
+        for index, row in reviewer_norm_scores.iterrows():
+            applicant_id = row['Applicant']
+            reviewer_score = row['GivenScore']
+            avg_score = avg_norm_scores.get(applicant_id) # Get the average calculated earlier
+
+            if avg_score is not None:
+                deviations.append(reviewer_score - avg_score)
+            else:
+                 # Should not happen if avg_norm_scores is calculated correctly
+                 print(f"Error: Could not find average score for normalizing applicant {applicant_id}")
+
+        # Calculate the average deviation (bias) for this reviewer
+        if deviations: # Ensure we have deviations to average
+            reviewer_bias = np.mean(deviations)
+            reviewer_biases[reviewer] = reviewer_bias
+        else:
+             reviewer_biases[reviewer] = 0 # Or handle as appropriate if no deviations found
+
+    print("\nCalculated reviewer biases:")
+    # for each reviewer, print the bias in order
+    # order the dictionary
+    reviewer_biases = dict(sorted(reviewer_biases.items(), key=lambda item: item[1]))
+    for reviewer, bias in reviewer_biases.items():
+        print(f"{reviewer}: {bias:.2f}")
+    # Example Output: {'R1': 0.66, 'R2': -5.67, 'R3': 3.33} (R1 slightly lenient, R2 harsh, R3 lenient)
+
+
+    # --- 4. Apply Bias Adjustment to Non-Normalizing Scores ---
+
+    # Function to apply adjustment and clip scores
+    def adjust_score(row):
+        if row['Applicant'] in normalizing_applicant_ids:
+            return row['GivenScore'] # Don't adjust scores of normalizing students themselves
+        else:
+            reviewer = row['Reviewer']
+            original_score = row['GivenScore']
+            bias = reviewer_biases.get(reviewer, 0) # Get bias, default to 0 if reviewer not found
+
+            adjusted = original_score - bias
+
+            # --- 5. Clip scores to valid range ---
+            clipped_score = max(MIN_SCORE, min(MAX_SCORE, adjusted))
+            return clipped_score
+
+    # Apply the function to create a new column 'adjusted_score'
+    reviewer_df['adjusted_score'] = reviewer_df.apply(adjust_score, axis=1)
+
+    # Compute the grouped by average of adjusted_score for the Applicant column and return it as a dictionary
+    reviewer_output = reviewer_df.groupby('Applicant')['adjusted_score'].mean().to_dict()
+
+    return reviewer_output
+
+
+
 def get_reviewer_scores(file: str, verbose: bool = False, DEBUG: bool = False) -> dict:
     """Returns the average score for each student in a dict
 
@@ -171,7 +303,7 @@ def get_reviewer_scores(file: str, verbose: bool = False, DEBUG: bool = False) -
     reviewer_avg = {}
     student_cnt = {}
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:
@@ -225,7 +357,7 @@ def generate_histo_arrays(file: str, SAT_to_ACT_dict: dict, SAT_to_ACT_Math_dict
     ACT_Overall = []
     ACTM_Overall = []
 
-    with open('Student_Data/' + str(file), 'r', encoding="utf-8-sig") as f:
+    with open('processingDataFiles/' + str(file), 'r', encoding="utf-8-sig") as f:
         # get fieldnames from DictReader object and store in list
         d_reader = csv.DictReader(f)
         for line in d_reader:
@@ -367,6 +499,9 @@ def GPA_Calc(student: Student, verbose: bool = False, DEBUG: bool = False) -> No
     student.GPA_Score *= cs.GPA_Score
     student.GPA_Score = round(student.GPA_Score, 2)
 
+    if student.GPA_Value < 3.0:
+        student.error_messages.append(f"GPA value is low: {student.GPA_Value}")
+
 
 def score_coursework(s: Student, course_scores: dict, verbose: bool = False, DEBUG: bool = False) -> None:
     classes = class_split(s.STEM_Classes)
@@ -379,7 +514,10 @@ def score_coursework(s: Student, course_scores: dict, verbose: bool = False, DEB
                 excep_list.append(c)
                 s.STEM_Score += 2
     if len(excep_list) > 0:
-        print(s.firstName, s.lastName, excep_list)
+        if verbose: 
+            logger.warning(f"{s.firstName} {s.lastName}: Unrecognized courses found - {excep_list}")
+        s.unrecognized_courses.extend(excep_list)
+        s.error_messages.append(f"Unrecognized courses found: {s.unrecognized_courses}")
 
     s.STEM_Score = min(cs.STEM_Score, s.STEM_Score / 3.5)
 
@@ -494,6 +632,8 @@ def class_split(classes: str, verbose: bool = False, DEBUG: bool = False) -> lis
     classes = classes.replace(' - ', ',')
     classes = classes.replace(' -', ',')
     classes = classes.replace(',,', ',')
+    classes = classes.replace(' / ', ',')
+    classes = classes.replace('/ ', ',')
 
     class_list = classes.split(',')
 
